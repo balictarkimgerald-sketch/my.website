@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For You ❤️</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      max-width: 320px;
+      position: relative;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #ff6b81;
+      color: white;
+    }
+
+    #noBtn {
+      background-color: #ccc;
+      color: black;
+      position: relative;
+    }
+
+    .hidden { display: none; }
+
+    ul { text-align: left; padding-left: 18px; }
+
+    .heart {
+      position: absolute;
+      color: #ff6b81;
+      font-size: 20px;
+      animation: float 4s linear infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-200px); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2>Message 💌</h2>
+    <button onclick="startMessage()">Open</button>
+
+    <div id="chat" class="hidden"></div>
+
+    <div id="final" class="hidden">
+      <p><b>So... pupunta ka ba? 🥺</b></p>
+      <button onclick="yesClick()">Yes 💖</button>
+      <button id="noBtn" onmouseover="moveNo()">No 😢</button>
+    </div>
+
+    <p id="result" class="hidden"><b>Yay!! See you tomorrow 💕</b></p>
+  </div>
+
+  <script>
+    const messages = [
+      'last na aya ko na toh, tara sa bahay bukas:)"sabado"',
+      'after ng NSTP mo po -kung meron po-',
+      'chat & eat lang, no funny business I promise 😇',
+      ' ',
+      'Reasons na dapat pumunta ka:',
+      '1. may fries tayo hehe for our snacks 🍟',
+      '2. miss ka na ni ambhie 🐶',
+      '3. and may drinks na din with your favorite drink mweheheh 🍵'
+    ];
+
+    let index = 0;
+
+    function startMessage() {
+      document.getElementById('chat').classList.remove('hidden');
+      typeMessage();
+    }
+
+    function typeMessage() {
+      if (index < messages.length) {
+        const p = document.createElement('p');
+        p.textContent = messages[index];
+        document.getElementById('chat').appendChild(p);
+        index++;
+        setTimeout(typeMessage, 1200);
+      } else {
+        document.getElementById('final').classList.remove('hidden');
+      }
+    }
+
+    function yesClick() {
+      document.getElementById('result').classList.remove('hidden');
+      createHearts();
+    }
+
+    function moveNo() {
+      const btn = document.getElementById('noBtn');
+      const x = Math.random() * 200;
+      const y = Math.random() * 200;
+      btn.style.position = 'absolute';
+      btn.style.left = x + 'px';
+      btn.style.top = y + 'px';
+    }
+
+    function createHearts() {
+      for (let i = 0; i < 10; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.innerHTML = '❤️';
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.top = '80%';
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 4000);
+      }
+    }
+  </script>
+
+</body>
+</html>
